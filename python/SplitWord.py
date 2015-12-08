@@ -5,6 +5,7 @@ import re
 from bs4 import BeautifulSoup
 import nltk
 nltk.download();
+
 from nltk.corpus
 import stopwords
 

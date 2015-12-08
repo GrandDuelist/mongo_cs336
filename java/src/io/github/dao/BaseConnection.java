@@ -5,7 +5,11 @@ import java.util.List;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
-
+/**
+ * base class to connect to mongodb
+ * @author zhihan
+ *
+ */
 public class BaseConnection {
 	
 	private String ip = "localhost";
@@ -13,9 +17,9 @@ public class BaseConnection {
 	
 	MongoClient mongo = null;	
 	private DB currentDB = null;
-	private DBCollection currentCollection = null;
+	protected DBCollection currentCollection = null;
 	
-	
+
 	/**
 	 * construction function with different parameters
 	 */
@@ -36,6 +40,7 @@ public class BaseConnection {
 		mongo = new MongoClient(this.ip,this.port);
 	}
 	
+	
 	public void setDBAndCollection(String dbName, String collectionName){
 		this.currentDB = mongo.getDB(dbName);
 		this.currentCollection = this.currentDB.getCollection(collectionName);
@@ -50,5 +55,19 @@ public class BaseConnection {
 		for(String db:dbs){
 			System.out.println(db);
 		}
+		
+	}
+	
+	public void showRecords(){
+		this.currentCollection.find();
+		
+	}
+	
+	public void close(){
+		if(this.mongo !=null){
+			this.mongo.close();
+		}
+		this.mongo = null;
+	
 	}
 }
